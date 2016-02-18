@@ -393,8 +393,13 @@ class GitRepo {
 	 * @param   boolean  should all files be committed automatically (-a flag)
 	 * @return  string
 	 */
-	public function commit($message = "", $commit_all = true) {
+	public function commit($message = "", $commit_all = true, $author = "") {
 		$flags = $commit_all ? '-av' : '-v';
+		
+		if ( $author ) {
+			$flags .= ' --author '.escapeshellarg($author);
+		}
+		
 		return $this->run("commit ".$flags." -m ".escapeshellarg($message));
 	}
 
